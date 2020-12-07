@@ -47,11 +47,6 @@ def reg():
     db.add(user)
     db.commit()
     
-    session_token = str(uuid.uuid4())
-    user.session_token = session_token
-    db.add(user)
-    db.commit()
-    
     response = make_response(render_template("table.html", filmek=db.query(Filmadatb), name = username))
     response.set_cookie("session_token", session_token, httponly=True, samesite='Strict')
     return response
