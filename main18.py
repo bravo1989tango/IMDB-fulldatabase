@@ -56,7 +56,7 @@ def reg():
 @app.route("/logoff", methods=["POST"])
 def kilepes():
     response = make_response(render_template("table.html"))
-    response.set_cookie("session_token", expires = 0)
+    response.set_cookie("username", expires = 0)
     return response
 
 if __name__ == '__main__':
