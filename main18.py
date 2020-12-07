@@ -43,12 +43,15 @@ def reg():
     password = request.form.get("regpassword")
 
     user = Imdbuser(name=username, password=password)
-    session_token = str(uuid.uuid4())
-    user.session_token = session_token
 
     db.add(user)
     db.commit()
-
+    
+    session_token = str(uuid.uuid4())
+    user.session_token = session_token
+    db.add(user)
+    db.commit()
+    
     response = make_response(render_template("table.html", filmek=db.query(Filmadatb), name = username))
     response.set_cookie("session_token", session_token, httponly=True, samesite='Strict')
     return response
@@ -56,7 +59,7 @@ def reg():
 @app.route("/logoff", methods=["POST"])
 def kilepes():
     response = make_response(render_template("table.html"))
-    response.set_cookie("username", expires = 0)
+    response.set_cookie("session_token", expires = 0)
     return response
 
 if __name__ == '__main__':
