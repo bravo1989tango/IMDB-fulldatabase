@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+        
+        td,
+        th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+</head>
+
+<body>
+    {% if not name%}
+    {% include "form.html" %}
+    {% endif %}
+    {% if name %}
+    <form method="post" action="/logoff">
+        <button type="submit">Kilépés</button>
+    </form>
+    <br>
+    <h2>Filmek</h2>
+
+    <table>
+        <tr>
+            <th>Cim</th>
+            <th>Leirás</th>
+            <th>IMDB</th>
+        </tr>
+        {% for film in filmek %}
+        <tr>
+            <td>{{film.cim}}</td>
+            <td>{{film.leiras}}</td>
+            <td><a href="{{film.IMDB}}">Link</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+</body>
+
+</html>
